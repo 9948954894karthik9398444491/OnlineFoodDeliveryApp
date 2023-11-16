@@ -3,10 +3,13 @@ package com.hexaware.fooddelivery.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.fooddelivery.dto.CustomersDTO;
 import com.hexaware.fooddelivery.entity.Customers;
+import com.hexaware.fooddelivery.exception.CartIdNotFoundException;
+import com.hexaware.fooddelivery.exception.CustomerNotFoundException;
 import com.hexaware.fooddelivery.repository.CustomersRepository;
 @Service
 public class CustomersServiceImp implements ICustomersService {
@@ -26,7 +29,7 @@ public class CustomersServiceImp implements ICustomersService {
 		customers.setEmail(customersDTO.getEmail());
 		customers.setPhoneNumber(customersDTO.getPhoneNumber());
 		customers.setDeliveryAddress(customersDTO.getDeliveryAddress());
-		customers.setCart(customersDTO.getCart());
+		//customers.setCart(customersDTO.getCart());
 
 		return repo.save(customers);
 	}
@@ -35,7 +38,13 @@ public class CustomersServiceImp implements ICustomersService {
 	public CustomersDTO getById(int customerId) {
 		// TODO Auto-generated method stub
 		
-		Customers customers=repo.findById(customerId).orElse(null);
+		Customers customers=repo.findById(customerId).orElse(new Customers());
+		if (customers.getCustomerId()==0) {
+			throw new CustomerNotFoundException(HttpStatus.NOT_FOUND,"Customer with customerId:"+customerId+" notfound");
+
+		}
+		
+		
 		CustomersDTO customersDTO=new CustomersDTO();
 		
 		customersDTO.setCustomerId(customers.getCustomerId());
@@ -63,7 +72,7 @@ public class CustomersServiceImp implements ICustomersService {
 		customers.setEmail(customersDTO.getEmail());
 		customers.setPhoneNumber(customersDTO.getPhoneNumber());
 		customers.setDeliveryAddress(customersDTO.getDeliveryAddress());
-		customers.setCart(customersDTO.getCart());
+		//customers.setCart(customersDTO.getCart());
 
 		return repo.save(customers);
 	}
@@ -81,6 +90,11 @@ public class CustomersServiceImp implements ICustomersService {
 	public CustomersDTO getByCustomerName(String customerName) {
 		
 		Customers customers=repo.findByCustomerName(customerName);
+		Customers customersId=repo.findById(customers.getCustomerId()).orElse(new Customers());
+		if(customersId.getCustomerId()==0) {
+			throw new CustomerNotFoundException(HttpStatus.NOT_FOUND,"Customer with customerName:"+customerName+" notfound");
+
+		}
 CustomersDTO customersDTO=new CustomersDTO();
 		
 		customersDTO.setCustomerId(customers.getCustomerId());

@@ -39,7 +39,7 @@ public class MenuController {
 	}
 
 	@PutMapping("/updateMenu")
-	public Menu updateMenu(@Valid @RequestBody  MenuDTO menuDTO) {
+	public Menu updateMenu( @RequestBody  MenuDTO menuDTO) {
 		return service.updateMenu(menuDTO);
 	}
 

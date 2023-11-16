@@ -4,16 +4,18 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 public class Restaurants {
 	@Id
 	private int restaurantId;
-	@NotEmpty
+	
 	private String restaurantName;
     private String cuisineType;
+    
     private String location;
+    @Pattern(regexp = "[0-5]{1}")
     private double rating;
     
     @OneToOne(cascade = CascadeType.ALL)

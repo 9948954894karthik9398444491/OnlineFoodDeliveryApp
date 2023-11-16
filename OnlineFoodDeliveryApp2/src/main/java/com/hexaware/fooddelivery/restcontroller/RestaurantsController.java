@@ -21,9 +21,16 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/Restaurants")
 public class RestaurantsController {
-	@Autowired
-	IRestaurantsService service;
 	
+	private IRestaurantsService service;
+	
+	
+	@Autowired
+	public RestaurantsController(IRestaurantsService service) {
+		super();
+		this.service = service;
+	}
+
 	@PostMapping("/addRestaurants")
 	public Restaurants addRestaurants(@Valid @RequestBody RestaurantsDTO restaurantsDTO) {
 		return service.addRestaurants(restaurantsDTO);
@@ -40,7 +47,7 @@ public class RestaurantsController {
 	}
 
 	@PutMapping("/updateRestaurants")
-	public Restaurants updateRestaurants(@Valid @RequestBody RestaurantsDTO restaurantsDTO) {
+	public Restaurants updateRestaurants( @RequestBody RestaurantsDTO restaurantsDTO) {
 		return service.updateRestaurants(restaurantsDTO);
 	}
 

@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.hexaware.fooddelivery.dto.MenuDTO;
 import com.hexaware.fooddelivery.entity.Menu;
-import com.hexaware.fooddelivery.exception.ProductNotFoundException;
+import com.hexaware.fooddelivery.exception.MenuNotFoundException;
+//import com.hexaware.fooddelivery.exception.ProductNotFoundException;
 import com.hexaware.fooddelivery.repository.MenuRepository;
 @Service
 public class MenuSeviceImp implements IMenuService {
@@ -25,7 +26,6 @@ public class MenuSeviceImp implements IMenuService {
 		menu.setItemName(menuDTO.getItemName());
 		menu.setDescription(menuDTO.getDescription());
 		menu.setPrice(menuDTO.getPrice());
-		menu.setAvailability(menuDTO.isAvailability());
 		
 		return repo.save(menu);
 	}
@@ -33,11 +33,11 @@ public class MenuSeviceImp implements IMenuService {
 	@Override
 	public MenuDTO getById(int menuItemId) {
 		// TODO Auto-generated method stub
-		Menu menu =repo.findById(menuItemId).orElse(null);
+		Menu menu =repo.findById(menuItemId).orElse(new Menu());
 		
-		if(menu.getMenuItemId() == 0) {
+		if(menu.getMenuItemId()==0) {
 		  
-		  throw new ProductNotFoundException(HttpStatus.NOT_FOUND , "Product Not Found from Service");
+		  throw new MenuNotFoundException(HttpStatus.NOT_FOUND ,"Menu with menuItemId:"+menuItemId+" notfound");
 	}
 	
 		MenuDTO menuDTO=new MenuDTO();
@@ -47,7 +47,7 @@ public class MenuSeviceImp implements IMenuService {
 		menuDTO.setItemName(menu.getItemName());
 		menuDTO.setDescription(menu.getDescription());
 		menuDTO.setPrice(menu.getPrice());
-		menuDTO.setAvailability(menu.isAvailability());
+		
 		
 		return menuDTO;
 	}
@@ -69,7 +69,7 @@ Menu menu=new Menu();
 		menu.setItemName(menuDTO.getItemName());
 		menu.setDescription(menuDTO.getDescription());
 		menu.setPrice(menuDTO.getPrice());
-		menu.setAvailability(menuDTO.isAvailability());
+		
 		
 		return repo.save(menu);
 		
@@ -94,7 +94,7 @@ Menu menu=new Menu();
 		menuDTO.setItemName(menu.getItemName());
 		menuDTO.setDescription(menu.getDescription());
 		menuDTO.setPrice(menu.getPrice());
-		menuDTO.setAvailability(menu.isAvailability());
+		
 		
 		return menuDTO;
 	}

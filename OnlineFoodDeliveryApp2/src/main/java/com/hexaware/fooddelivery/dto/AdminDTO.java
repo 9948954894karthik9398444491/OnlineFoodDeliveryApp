@@ -1,8 +1,12 @@
 package com.hexaware.fooddelivery.dto;
 
+import jakarta.validation.constraints.Pattern;
+
 public class AdminDTO {
 	private int adminId;
+	@Pattern(regexp = "[a-zA-Z]{2,10}",message = "name minimum of size 2")
 	private String userName;
+	@Pattern(regexp = "[a-zA-Z0-9]{6,15}",message = "must be 6 characters")
 	private String password;
 
 	
@@ -14,6 +18,7 @@ public class AdminDTO {
 	public AdminDTO(int adminId, String userName, String password) {
 		super();
 		this.adminId = adminId;
+		
 		this.userName = userName;
 		this.password = password;
 	}

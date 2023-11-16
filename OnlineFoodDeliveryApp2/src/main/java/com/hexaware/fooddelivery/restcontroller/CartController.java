@@ -40,7 +40,7 @@ public class CartController {
 	}
 	
 	@PutMapping("/updateCart")
-	public Cart updateCart(@Valid @RequestBody  CartDTO cartDTO) {
+	public Cart updateCart( @RequestBody  CartDTO cartDTO) {
 		return service.updateCart(cartDTO);
 	}
 

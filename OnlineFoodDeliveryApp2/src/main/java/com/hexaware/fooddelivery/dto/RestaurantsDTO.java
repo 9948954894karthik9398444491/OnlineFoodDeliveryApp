@@ -6,16 +6,27 @@ import com.hexaware.fooddelivery.entity.Orders;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 public class RestaurantsDTO {
 
 	private int restaurantId ;
+	
+	@Pattern(regexp = "[a-zA-Z]{2,50}",message = "address minimum of size 2")
+
 	private String restaurantName ;
+	@Pattern(regexp = "[a-zA-Z]{2,50}",message = "address minimum of size 2")
+
     private String cuisineType;
+	@NotBlank(message = "menthin location")
     private String location;
+	@Min(value=0,message = "give some rating")
     private double rating;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    /*@OneToOne(cascade = CascadeType.ALL)
     private Customers customers;
     
     @OneToOne(cascade = CascadeType.ALL)
@@ -23,7 +34,7 @@ public class RestaurantsDTO {
     
     @OneToOne(cascade = CascadeType.ALL)
     private Orders orders;
-    
+    */
 	public RestaurantsDTO() {
 		super();
 	}
@@ -65,7 +76,7 @@ public class RestaurantsDTO {
 	public void setRating(double rating) {
 		this.rating = rating;
 	}
-	public Customers getCustomers() {
+	/*public Customers getCustomers() {
 		return customers;
 	}
 	public void setCustomers(Customers customers) {
@@ -82,7 +93,7 @@ public class RestaurantsDTO {
 	}
 	public void setOrders(Orders orders) {
 		this.orders = orders;
-	}
+	}*/
     
 
 }

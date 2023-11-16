@@ -4,24 +4,22 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
+
 
 @Entity
 public class Customers {
 	@Id
 	
 	private int customerId;
-	@NotEmpty
-	private String customerName;
-	@Email
-	private String email;
 	
+	private String customerName;
+	
+	private String email;
 	private String phoneNumber;
-	@NotEmpty
+	
 	private String deliveryAddress;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	/*@OneToOne(cascade = CascadeType.ALL)
 	private Cart cart;
 	
 	public Cart getCart() {
@@ -32,7 +30,7 @@ public class Customers {
 	public void setCart(Cart cart) {
 		this.cart = cart;
 	}
-
+*/
 	
 	public Customers() {
 		super();

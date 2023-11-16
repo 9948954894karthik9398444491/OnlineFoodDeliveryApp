@@ -1,28 +1,32 @@
 package com.hexaware.fooddelivery.dto;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 public class MenuDTO {
 	private int menuItemId;
+	
+	@Min(value = 200, message = "restaurantId must be greater than or equal to 200")
 	private int restaurantId;
-
+	@Pattern(regexp = "[a-zA-Z]{2,10}",message = "item name minimum of size 2")
 	private String itemName;
 	private String description;
-	
+    @Min(value = 100, message = "Price must be greater than or equal to 100")
 	private double price;
-	private boolean availability;
+   
 	public MenuDTO() {
 		super();
 	}
 	
-	public MenuDTO(int menuItemId, int restaurantId, String itemName, String description, double price,
-			boolean availability) {
+	public MenuDTO(int menuItemId, int restaurantId, String itemName, String description, double price) {
 		super();
 		this.menuItemId = menuItemId;
 		this.restaurantId = restaurantId;
 		this.itemName = itemName;
 		this.description = description;
 		this.price = price;
-		this.availability = availability;
+		
 	}
 
 	public int getMenuItemId() {
@@ -65,13 +69,7 @@ public class MenuDTO {
 		this.price = price;
 	}
 
-	public boolean isAvailability() {
-		return availability;
-	}
-
-	public void setAvailability(boolean availability) {
-		this.availability = availability;
-	}
+	
 
 	
 }

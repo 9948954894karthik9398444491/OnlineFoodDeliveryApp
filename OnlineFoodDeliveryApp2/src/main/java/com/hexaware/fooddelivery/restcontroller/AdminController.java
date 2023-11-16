@@ -4,6 +4,7 @@ package com.hexaware.fooddelivery.restcontroller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.fooddelivery.dto.AdminDTO;
 import com.hexaware.fooddelivery.entity.Admin;
+import com.hexaware.fooddelivery.exception.AdminNotFoundException;
 import com.hexaware.fooddelivery.service.IAdminService;
 
 import jakarta.validation.Valid;
@@ -36,6 +38,15 @@ public class AdminController {
 	@GetMapping("/getById/{adminId}")
 	public AdminDTO getById(@PathVariable int adminId) {
 		
+		/*AdminDTO adminDTO= service.getById(adminId);
+		if (adminDTO.getAdminId()!=adminId) {
+			throw new AdminNotFoundException(HttpStatus.NOT_FOUND,"admin with adminId:"+adminId+" notfound");
+		}
+			
+		
+		
+		
+		return adminDTO;*/
 		return service.getById(adminId);
 	}
 
@@ -45,7 +56,7 @@ public class AdminController {
 	}
 
 	@PutMapping("/updateAdmin")
-	public Admin updateAdmin(@Valid @RequestBody AdminDTO adminDTO) {
+	public Admin updateAdmin( @RequestBody AdminDTO adminDTO) {
 		return service.updateAdmin(adminDTO);
 	}
 

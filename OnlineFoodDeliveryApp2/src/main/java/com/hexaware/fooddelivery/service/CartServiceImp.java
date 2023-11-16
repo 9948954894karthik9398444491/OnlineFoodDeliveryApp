@@ -3,10 +3,13 @@ package com.hexaware.fooddelivery.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.fooddelivery.dto.CartDTO;
 import com.hexaware.fooddelivery.entity.Cart;
+import com.hexaware.fooddelivery.exception.AdminNotFoundException;
+import com.hexaware.fooddelivery.exception.CartIdNotFoundException;
 import com.hexaware.fooddelivery.repository.CartRepository;
 @Service
 public class CartServiceImp implements ICartService {
@@ -41,7 +44,11 @@ public class CartServiceImp implements ICartService {
 	public CartDTO getById(int cartId) {
 		// TODO Auto-generated method stub
 		
-		Cart cart =repo.findById(cartId).orElse(null);
+		Cart cart =repo.findById(cartId).orElse(new Cart());
+		if (cart.getCartId()==0) {
+			throw new CartIdNotFoundException(HttpStatus.NOT_FOUND,"Cart with CartId:"+cartId+" notfound");
+
+		}
 		
 		CartDTO cartDTO=new CartDTO();
 		cartDTO.setCartId(cart.getCartId());

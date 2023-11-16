@@ -1,23 +1,30 @@
 package com.hexaware.fooddelivery.dto;
 
-
+import jakarta.validation.constraints.Min;
 
 public class CartDTO {
-	private int cartId;
 	
+	private int cartId;
+	@Min(value = 100,message = "must greater than 100")
 	private int customerId;
+	@Min(value = 200,message = "must greater than 100")
 	private int restaurantId;
+	@Min(value = 300,message = "must greater than 100")
 	private int itemId;
+	@Min(value = 1,message = "must greater than 100")
 	private double price;
+	@Min(value = 1,message = "must greater than 100")
 	private int quantity;
+	@Min(value = 1,message = "must greater than 100")
 	private double total;
+	@Min(value = 400,message = "must greater than 100")
 	private int orderId;
 	
+	
+
 	public CartDTO() {
 		super();
 	}
-
-	
 
 	public CartDTO(int cartId, int customerId, int restaurantId, int itemId, double price, int quantity, double total,
 			int orderId) {
@@ -32,8 +39,6 @@ public class CartDTO {
 		this.orderId = orderId;
 	}
 
-
-
 	public int getCartId() {
 		return cartId;
 	}
@@ -46,24 +51,24 @@ public class CartDTO {
 		return customerId;
 	}
 
-	public void setCustomerId(int customer_id) {
-		this.customerId = customer_id;
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
 	}
 
 	public int getRestaurantId() {
 		return restaurantId;
 	}
 
-	public void setRestaurantId(int restaurant_id) {
-		this.restaurantId = restaurant_id;
+	public void setRestaurantId(int restaurantId) {
+		this.restaurantId = restaurantId;
 	}
 
 	public int getItemId() {
 		return itemId;
 	}
 
-	public void setItemId(int item_id) {
-		this.itemId = item_id;
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
 	}
 
 	public double getPrice() {
@@ -94,11 +99,12 @@ public class CartDTO {
 		return orderId;
 	}
 
-	public void setOrderId(int order_id) {
-		this.orderId = order_id;
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
 	}
 
+	
 
-
+	
 	
 }

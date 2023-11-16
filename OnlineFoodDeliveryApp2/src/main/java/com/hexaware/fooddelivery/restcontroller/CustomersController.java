@@ -43,7 +43,7 @@ public class CustomersController {
 	}
 
 	@PutMapping("/updateCustomers")
-	public Customers updateCustomers(@Valid @RequestBody CustomersDTO customersDTO) {
+	public Customers updateCustomers( @RequestBody CustomersDTO customersDTO) {
 		return service.updateCustomers(customersDTO);
 	}
 

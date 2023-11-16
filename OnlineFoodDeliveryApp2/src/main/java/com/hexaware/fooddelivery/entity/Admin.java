@@ -6,8 +6,7 @@ package com.hexaware.fooddelivery.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="Admin")
@@ -15,10 +14,10 @@ public class Admin {
 	
 	
 	@Id
+	
 	private int adminId;
-	@NotEmpty
+	
 	private String userName;
-	@NotNull(message = "enter a password")
 	private String password;
 	
 	

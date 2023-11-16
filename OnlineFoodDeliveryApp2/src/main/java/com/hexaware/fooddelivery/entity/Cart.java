@@ -2,24 +2,24 @@ package com.hexaware.fooddelivery.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
+
 
 
 @Entity
 public class Cart {
 	@Id
 	private int cartId;
-	@NotEmpty
+	
 	private int customerId;
-	@NotEmpty
+	
 	private int restaurantId;
 	private int itemId;
-	@Min(100)
+	
 	private double price;
+	
 	private int quantity;
-	@Min(100)
 	private double total;
+	
 	private int orderId;
 	
 	public Cart() {

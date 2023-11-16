@@ -2,36 +2,34 @@ package com.hexaware.fooddelivery.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+
 
 
 @Entity
 public class Menu {
 	@Id
 	private int menuItemId;
-	@NotEmpty
+	
 	private int restaurantId;
-	@NotNull
+	
 	private String itemName;
 	private String description;
 	
 	private double price;
 	
-	private boolean availability;
+
 	public Menu() {
 		super();
 	}
 	
-	public Menu(int menuItemId, int restaurantId, String itemName, String description, double price,
-			boolean availability) {
+	public Menu(int menuItemId, int restaurantId, String itemName, String description, double price) {
 		super();
 		this.menuItemId = menuItemId;
 		this.restaurantId = restaurantId;
 		this.itemName = itemName;
 		this.description = description;
 		this.price = price;
-		this.availability = availability;
+		
 	}
 
 	public int getMenuItemId() {
@@ -74,13 +72,7 @@ public class Menu {
 		this.price = price;
 	}
 
-	public boolean isAvailability() {
-		return availability;
-	}
 
-	public void setAvailability(boolean availability) {
-		this.availability = availability;
-	}
 
 	
 	

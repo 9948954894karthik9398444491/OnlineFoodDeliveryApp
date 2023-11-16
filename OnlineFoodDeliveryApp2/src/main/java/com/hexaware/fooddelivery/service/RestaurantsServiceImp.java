@@ -3,10 +3,13 @@ package com.hexaware.fooddelivery.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.fooddelivery.dto.RestaurantsDTO;
 import com.hexaware.fooddelivery.entity.Restaurants;
+import com.hexaware.fooddelivery.exception.OrderNotFoundException;
+import com.hexaware.fooddelivery.exception.RestaurantNotFoundException;
 import com.hexaware.fooddelivery.repository.RestaurantsRepository;
 @Service
 public class RestaurantsServiceImp implements IRestaurantsService {
@@ -16,7 +19,6 @@ public class RestaurantsServiceImp implements IRestaurantsService {
 	
 	@Override
 	public Restaurants addRestaurants(RestaurantsDTO restaurantsDTO) {
-		// TODO Auto-generated method stub
 		Restaurants restaurants=new Restaurants();
 		
 		
@@ -27,9 +29,9 @@ public class RestaurantsServiceImp implements IRestaurantsService {
 	    restaurants.setLocation(restaurantsDTO.getLocation());
 	    restaurants.setRating(restaurantsDTO.getRating());
 	    
-	    restaurants.setCustomers(restaurantsDTO.getCustomers());
+	    /*restaurants.setCustomers(restaurantsDTO.getCustomers());
 	    restaurants.setMenu(restaurantsDTO.getMenu());
-	    restaurants.setOrders(restaurantsDTO.getOrders());
+	    restaurants.setOrders(restaurantsDTO.getOrders());*/
 		
 		
 		return repo.save(restaurants);
@@ -38,7 +40,11 @@ public class RestaurantsServiceImp implements IRestaurantsService {
 	@Override
 	public RestaurantsDTO getById(int restaurantId) {
 		// TODO Auto-generated method stub
-		Restaurants restaurants=repo.findById(restaurantId).orElse(null);
+		Restaurants restaurants=repo.findById(restaurantId).orElse(new Restaurants());
+		if (restaurants.getRestaurantId()==0) {
+			  throw new RestaurantNotFoundException(HttpStatus.NOT_FOUND ,"Restaurant with restaurantId:"+restaurantId+" notfound");
+
+		}
 		RestaurantsDTO restaurantsDTO=new RestaurantsDTO();
 		
 		restaurantsDTO.setRestaurantId(restaurants.getRestaurantId());
@@ -70,9 +76,9 @@ Restaurants restaurants=new Restaurants();
 	    restaurants.setLocation(restaurantsDTO.getLocation());
 	    restaurants.setRating(restaurantsDTO.getRating());
 	    
-	    restaurants.setCustomers(restaurantsDTO.getCustomers());
+	   /* restaurants.setCustomers(restaurantsDTO.getCustomers());
 	    restaurants.setMenu(restaurantsDTO.getMenu());
-	    restaurants.setOrders(restaurantsDTO.getOrders());
+	    restaurants.setOrders(restaurantsDTO.getOrders());*/
 		
 		return repo.save(restaurants);
 	}

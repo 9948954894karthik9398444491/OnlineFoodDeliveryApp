@@ -2,19 +2,27 @@ package com.hexaware.fooddelivery.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 
+/*
+ * 
+ * @Author:Karthik&Vikas 
+ * Date:14-11-2023
+ * Description: Entity class of Orders
+ * 
+ * 
+ */
 @Entity
 public class Orders {
 	@Id
 	private int cartId;
-	@NotNull
+	
 	private int customerId;
+	
 	private int restaurantId;
 	private String deliveryAddress;
 	private String paymentMethod;
-	@NotEmpty
+	
+	
 	private double totalAmount;
 	public Orders() {
 		super();
