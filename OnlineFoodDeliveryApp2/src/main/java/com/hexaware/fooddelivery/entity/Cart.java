@@ -2,6 +2,8 @@ package com.hexaware.fooddelivery.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 
 
@@ -21,6 +23,10 @@ public class Cart {
 	private double total;
 	
 	private int orderId;
+	
+	 /*@ManyToOne
+	    @JoinColumn(name = "customer_id") // Assuming the column name in Cart referencing Customer is "customer_id"
+	    private Customers customer;     */
 	
 	public Cart() {
 		super();

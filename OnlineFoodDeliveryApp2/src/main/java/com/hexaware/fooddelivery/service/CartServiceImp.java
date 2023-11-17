@@ -8,8 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.hexaware.fooddelivery.dto.CartDTO;
 import com.hexaware.fooddelivery.entity.Cart;
-import com.hexaware.fooddelivery.exception.AdminNotFoundException;
+import com.hexaware.fooddelivery.entity.Customers;
 import com.hexaware.fooddelivery.exception.CartIdNotFoundException;
+import com.hexaware.fooddelivery.exception.CustomerNotFoundException;
 import com.hexaware.fooddelivery.repository.CartRepository;
 @Service
 public class CartServiceImp implements ICartService {
@@ -39,6 +40,19 @@ public class CartServiceImp implements ICartService {
 		
 		return repo.save(cart);
 	}
+	
+	/*
+	@Override
+	public Cart addCart(CartDTO cartDTO, int customerId) {
+	    Customers customer = customerRepository.findById(customerId).orElseThrow(() -> new CustomerNotFoundException("Customer not found"));
+
+	    Cart cart = new Cart();
+	    // Set cart properties
+	    cart.setCustomer(customer);
+	    // Other properties setup
+
+	    return repo.save(cart);
+	}   */
 
 	@Override
 	public CartDTO getById(int cartId) {

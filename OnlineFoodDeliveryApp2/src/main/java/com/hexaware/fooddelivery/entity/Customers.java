@@ -1,9 +1,11 @@
 package com.hexaware.fooddelivery.entity;
 
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 
 
 @Entity
@@ -19,18 +21,12 @@ public class Customers {
 	
 	private String deliveryAddress;
 	
-	/*@OneToOne(cascade = CascadeType.ALL)
-	private Cart cart;
 	
-	public Cart getCart() {
-		return cart;
-	}
-
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
-	}
-*/
+/*
+	    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL) // Assuming "customer" is the field name in Cart referencing Customer
+	    private List<Cart> carts;
+	*/
+	
 	
 	public Customers() {
 		super();

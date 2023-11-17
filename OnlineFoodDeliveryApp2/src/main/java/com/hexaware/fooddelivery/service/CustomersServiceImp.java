@@ -7,8 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.fooddelivery.dto.CustomersDTO;
+import com.hexaware.fooddelivery.entity.Cart;
 import com.hexaware.fooddelivery.entity.Customers;
-import com.hexaware.fooddelivery.exception.CartIdNotFoundException;
 import com.hexaware.fooddelivery.exception.CustomerNotFoundException;
 import com.hexaware.fooddelivery.repository.CustomersRepository;
 @Service
@@ -17,6 +17,14 @@ public class CustomersServiceImp implements ICustomersService {
 	
 	@Autowired
 	CustomersRepository repo;
+	
+	/*
+	@Override
+	public CustomersDTO getById(int customerId) {
+	    Customers customers = repo.findById(customerId)
+	                                .orElseThrow(() -> new CustomerNotFoundException("Customer not found"));
+	    List<Cart> carts = customers.getCarts(); // Retrieve associated carts if needed
+	}  */
 
 	@Override
 	public Customers addCustomers(CustomersDTO customersDTO) {
@@ -33,6 +41,7 @@ public class CustomersServiceImp implements ICustomersService {
 
 		return repo.save(customers);
 	}
+	
 
 	@Override
 	public CustomersDTO getById(int customerId) {
