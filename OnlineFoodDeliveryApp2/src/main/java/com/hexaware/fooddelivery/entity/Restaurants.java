@@ -8,7 +8,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
-
+/*
+ * 
+ * @Author:Karthik
+ * Date:14-11-2023
+ * Description: Entity class of Orders
+ * 
+ * 
+ */
 @Entity
 public class Restaurants {
 	@Id
