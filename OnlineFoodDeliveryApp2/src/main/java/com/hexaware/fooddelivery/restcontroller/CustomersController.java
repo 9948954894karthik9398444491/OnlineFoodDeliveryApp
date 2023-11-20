@@ -3,6 +3,7 @@ package com.hexaware.fooddelivery.restcontroller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,26 +34,36 @@ public class CustomersController {
 	}
 
 	@GetMapping("/getById/{customerId}")
+	@PreAuthorize("hasAnyAuthority('ADMIN')")
+
 	public CustomersDTO getById(@PathVariable int customerId) {
 		return service.getById(customerId);
 	}
 
 	@GetMapping("/getAllCustomers")
+	@PreAuthorize("hasAnyAuthority('ADMIN')")
+
 	public List<Customers> getAllCustomers() {
 		return service.getAllCustomers();
 	}
 
 	@PutMapping("/updateCustomers")
+	@PreAuthorize("hasAnyAuthority('CUSTOMER','ADMIN')")
+
 	public Customers updateCustomers( @RequestBody CustomersDTO customersDTO) {
 		return service.updateCustomers(customersDTO);
 	}
 
 	@DeleteMapping("/deleteByCustomers/{customerId}")
+	@PreAuthorize("hasAnyAuthority('CUSTOMER','ADMIN')")
+
 	public void deleteById(@PathVariable int customerId) {
 		service.deleteById(customerId);
 	}
 
 	@GetMapping("/getByCustomer_name/{customerName}")
+	@PreAuthorize("hasAnyAuthority('ADMIN')")
+
 	public CustomersDTO getByCustomerName(@PathVariable String customerName) {
 		
 		return service.getByCustomerName(customerName);

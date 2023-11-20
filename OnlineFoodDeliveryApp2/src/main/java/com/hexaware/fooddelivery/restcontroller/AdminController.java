@@ -4,6 +4,7 @@ package com.hexaware.fooddelivery.restcontroller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,21 +35,27 @@ public class AdminController {
 	}
 
 	@GetMapping("/getById/{adminId}")
+	@PreAuthorize("hasAnyAuthority('ADMIN')")
 	public AdminDTO getById(@PathVariable int adminId) {
 		return service.getById(adminId);
 	}
 
 	@GetMapping("/getAllAdmin")
+
 	public List<Admin> getAllAdmin() {
 		return service.getAllAdmin();
 	}
 
 	@PutMapping("/updateAdmin")
+	@PreAuthorize("hasAnyAuthority('ADMIN')")
+
 	public Admin updateAdmin( @RequestBody AdminDTO adminDTO) {
 		return service.updateAdmin(adminDTO);
 	}
 
 	@DeleteMapping("/deleteById/{adminId}")
+	@PreAuthorize("hasAnyAuthority('ADMIN')")
+
 	public void deleteById(@PathVariable int adminId) {
 		service.deleteById(adminId);
 

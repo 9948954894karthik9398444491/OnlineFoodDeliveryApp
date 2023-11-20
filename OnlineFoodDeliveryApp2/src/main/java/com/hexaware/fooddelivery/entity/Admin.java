@@ -4,24 +4,22 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-
 public class Admin {
-
+	
+	
 	@Id
 	private int adminId;
-	
-	private String userName;
-	private String password;
-	private String roles;
+    private String userName;
+    private String password;
+    private final String role="ADMIN";
 	public Admin() {
 		super();
 	}
-	public Admin(int adminId, String userName, String password, String roles) {
+	public Admin(int adminId, String userName, String password) {
 		super();
 		this.adminId = adminId;
 		this.userName = userName;
 		this.password = password;
-		this.roles = roles;
 	}
 	public int getAdminId() {
 		return adminId;
@@ -41,13 +39,19 @@ public class Admin {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getRoles() {
-		return roles;
+	public String getRole() {
+		return role;
 	}
-	public void setRoles(String roles) {
-		this.roles = roles;
+	@Override
+	public String toString() {
+		return "Admin [adminId=" + adminId + ", userName=" + userName + ", password=" + password + ", role=" + role
+				+ "]";
 	}
 	
 	
-}
+	
+	
+	
+	
 
+}

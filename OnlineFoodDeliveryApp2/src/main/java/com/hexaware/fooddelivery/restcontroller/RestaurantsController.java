@@ -3,6 +3,7 @@ package com.hexaware.fooddelivery.restcontroller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,30 +32,42 @@ public class RestaurantsController {
 	}
 
 	@PostMapping("/addRestaurants")
+	@PreAuthorize("hasAnyAuthority('ADMIN')")
+
 	public Restaurants addRestaurants(@Valid @RequestBody RestaurantsDTO restaurantsDTO) {
 		return service.addRestaurants(restaurantsDTO);
 	}
 
 	@GetMapping("/getById/{restaurantId}")
+	@PreAuthorize("hasAnyAuthority('ADMIN')")
+
 	public RestaurantsDTO getById(@PathVariable int restaurantId) {
 		return service.getById(restaurantId);
 	}
 
 	@GetMapping("/getAllRestaurants")
+	@PreAuthorize("hasAnyAuthority('CUSTOMER','ADMIN')")
+
 	public List<Restaurants> getAllRestaurants() {
 		return service.getAllRestaurants();
 	}
 
 	@PutMapping("/updateRestaurants")
+	@PreAuthorize("hasAnyAuthority('ADMIN')")
+
 	public Restaurants updateRestaurants( @RequestBody RestaurantsDTO restaurantsDTO) {
 		return service.updateRestaurants(restaurantsDTO);
 	}
 
 	@DeleteMapping("/deleteById/{restaurantId}")
+	@PreAuthorize("hasAnyAuthority('ADMIN')")
+
 	public void deleteById(@PathVariable int restaurantId) {
 		service.deleteById(restaurantId);
 	}
 	@GetMapping("/getByRestaurantName/{restaurantName}")
+	@PreAuthorize("hasAnyAuthority('CUSTOMER','ADMIN')")
+
 	public RestaurantsDTO getByRestaurantName(@PathVariable String restaurantName) {
 		
 		return service.getByRestaurantName(restaurantName);

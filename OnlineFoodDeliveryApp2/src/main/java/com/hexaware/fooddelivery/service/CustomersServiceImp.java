@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.fooddelivery.dto.CustomersDTO;
@@ -17,8 +18,15 @@ public class CustomersServiceImp implements ICustomersService {
 	
 	
 	@Autowired
-	CustomersRepository repo;
-	
+	private CustomersRepository repo;
+	private  PasswordEncoder passwordEncoder;	
+
+	public CustomersServiceImp(CustomersRepository repo, PasswordEncoder passwordEncoder) {
+		super();
+		this.repo = repo;
+		this.passwordEncoder = passwordEncoder;
+	}
+
 	Logger logger = LoggerFactory.getLogger(CustomersServiceImp.class);
 
 	@Override
@@ -32,6 +40,9 @@ public class CustomersServiceImp implements ICustomersService {
 		customers.setEmail(customersDTO.getEmail());
 		customers.setPhoneNumber(customersDTO.getPhoneNumber());
 		customers.setDeliveryAddress(customersDTO.getDeliveryAddress());
+		customers.setPassword(passwordEncoder.encode(customersDTO.getPassword()));
+
+		
 		logger.info("Added to customers with id"+customersDTO.getCustomerId());
 
 		return repo.save(customers);
@@ -54,7 +65,8 @@ public class CustomersServiceImp implements ICustomersService {
 		customersDTO.setEmail(customers.getEmail());
 		customersDTO.setPhoneNumber(customers.getPhoneNumber());
 		customersDTO.setDeliveryAddress(customers.getDeliveryAddress());
-		
+		customersDTO.setPassword(passwordEncoder.encode(customers.getPassword()));
+
 		logger.info("Get  customers with id"+customers.getCustomerId());
 
 		return customersDTO;
@@ -76,6 +88,8 @@ public class CustomersServiceImp implements ICustomersService {
 		customers.setEmail(customersDTO.getEmail());
 		customers.setPhoneNumber(customersDTO.getPhoneNumber());
 		customers.setDeliveryAddress(customersDTO.getDeliveryAddress());
+		customers.setPassword(passwordEncoder.encode(customersDTO.getPassword()));
+
 		logger.info("Updated to customers with id"+customersDTO.getCustomerId());
 
 		return repo.save(customers);
@@ -95,7 +109,7 @@ public class CustomersServiceImp implements ICustomersService {
 	@Override
 	public CustomersDTO getByCustomerName(String customerName) {
 		
-		Customers customers=repo.findByCustomerName(customerName);
+		Customers customers=repo.getByCustomerName(customerName);
 		if (customers == null) {
 	        throw new CustomerNotFoundException(HttpStatus.NOT_FOUND, "Customers with customerName: " + customerName + " not found");
 	    }
@@ -108,6 +122,8 @@ public class CustomersServiceImp implements ICustomersService {
 		customersDTO.setEmail(customers.getEmail());
 		customersDTO.setPhoneNumber(customers.getPhoneNumber());
 		customersDTO.setDeliveryAddress(customers.getDeliveryAddress());
+		customersDTO.setPassword(passwordEncoder.encode(customers.getPassword()));
+
 		logger.info("Get  customers with name"+customers.getCustomerName());
 
 		

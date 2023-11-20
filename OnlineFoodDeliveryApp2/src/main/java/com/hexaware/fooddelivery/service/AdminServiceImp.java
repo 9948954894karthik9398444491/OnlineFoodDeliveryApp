@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.fooddelivery.dto.AdminDTO;
@@ -19,7 +20,17 @@ public class AdminServiceImp implements IAdminService {
 	
 	
 	@Autowired
-	AdminRepository repo;
+	private AdminRepository repo;
+	private PasswordEncoder passwordEncoder;
+
+	public AdminServiceImp(AdminRepository repo, PasswordEncoder passwordEncoder) {
+		super();
+		this.repo = repo;
+		this.passwordEncoder = passwordEncoder;
+	}
+
+	
+	
 	Logger logger = LoggerFactory.getLogger(AdminServiceImp.class);
 	
 	@Override
@@ -29,8 +40,8 @@ public class AdminServiceImp implements IAdminService {
 		
 		admin.setAdminId(adminDTO.getAdminId());
 		admin.setUserName(adminDTO.getUserName());
-		admin.setPassword(adminDTO.getPassword());
-		admin.setRoles(adminDTO.getRoles());
+		admin.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
+
 		logger.info("Added to admin with name:"+adminDTO.getUserName());
 		return repo.save(admin);
 	}
@@ -46,8 +57,7 @@ public class AdminServiceImp implements IAdminService {
 		AdminDTO adminDTO = new AdminDTO();
 		adminDTO.setAdminId(admin.getAdminId());
 		adminDTO.setUserName(admin.getUserName());
-		adminDTO.setPassword(admin.getPassword());
-		adminDTO.setRoles(admin.getRoles());
+		adminDTO.setPassword(passwordEncoder.encode(admin.getPassword()));
 		
 		logger.info("Get admin with adminId:"+adminDTO.getAdminId());
 
@@ -69,8 +79,7 @@ public class AdminServiceImp implements IAdminService {
 		Admin admin=new Admin();
 		admin.setAdminId(adminDTO.getAdminId());
 		admin.setUserName(adminDTO.getUserName());
-		admin.setPassword(adminDTO.getPassword());
-		admin.setRoles(adminDTO.getRoles());
+		admin.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
 
 		
 		logger.info("Updated admin with adminId:"+adminDTO.getAdminId());
@@ -98,8 +107,7 @@ public class AdminServiceImp implements IAdminService {
 		AdminDTO adminDTO = new AdminDTO();
 		adminDTO.setAdminId(admin.getAdminId());
 		adminDTO.setUserName(admin.getUserName());
-		adminDTO.setPassword(admin.getPassword());
-		adminDTO.setRoles(admin.getRoles());
+		adminDTO.setPassword(passwordEncoder.encode(admin.getPassword()));
 
 		
 		logger.info("Get admin with adminName:"+admin.getUserName());
