@@ -37,7 +37,10 @@ export class RestaurantsService {
       return this.http.put<Restaurants>(`${this.baseURL}Restaurants/updateRestaurants`,updatedAdmin, { headers });
     }
     
-  
+    getByName(adminId: String, token: string) {
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      return this.http.get<Restaurants>(`${this.baseURL}Restaurants/getByRestaurantName/${adminId}`, {headers,responseType:'json' as 'json'});
+    }
   
 
 }

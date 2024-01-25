@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Restaurants } from 'src/app/model/Restaurants';
 import { AdminService } from 'src/app/services/admin.service';
@@ -23,8 +23,12 @@ export class RestaurantComponent implements OnInit {
 
   admin:boolean=false;
   customer:boolean=false;
+  a=0;
 
-  constructor(private jwtService:RestaurantsService,admintoken:AdminService,private route:Router){
+  findrestaurant:String="";
+  findrestaurantdetails:any;
+  storerestaurantdetails:any;
+  constructor(private jwtService:RestaurantsService,admintoken:AdminService,private route:Router,private cdr: ChangeDetectorRef){
 
     
     this.menuService=jwtService;
@@ -180,11 +184,29 @@ backToadminDash(){
   this.route.navigate(['/admindashboard']);
 }
 goToUpdate(restaurantId: number) {
-  this.route.navigate(['/menuupdate', restaurantId]);
+  this.route.navigate(['/restaurantupdate', restaurantId]);
+}
+findRestaurantName() {
+  this.a += 1;
+  this.findrestaurantdetails = this.menuService.getByName(this.findrestaurant, this.adminKey);
+  console.log(this.findrestaurantdetails);
+
+  this.findrestaurantdetails.subscribe(
+    (storerestaurantdetails: Restaurants) => {
+      console.log('Shown Restaurant is: ', storerestaurantdetails);
+      this.storerestaurantdetails = storerestaurantdetails; // Update the property
+      this.cdr.detectChanges(); // Manually trigger change detection
+    },
+    (error: any) => {
+      console.error('Error updating Restaurant: ', error);
+    }
+  );
+}
 }
 
 
-}
+
+
 
  
     
