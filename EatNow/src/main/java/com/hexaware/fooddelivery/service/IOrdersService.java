@@ -20,4 +20,5 @@ public interface IOrdersService {
 	public List<Orders> getAllOrders();
 	Orders updateOrders(OrdersDTO ordersDTO);
 	void deleteById(int cartId);
+	List<OrdersDTO> getByCustomerId(int customerId);
 }

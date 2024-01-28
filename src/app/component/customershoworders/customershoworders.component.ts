@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Orders } from 'src/app/model/Orders';
 import { AdminService } from 'src/app/services/admin.service';
 import { CustomerService } from 'src/app/services/customer.service';
@@ -19,20 +19,28 @@ export class CustomershowordersComponent {
   deleteId!: number;
   getName!:String;
   getresponseName:any;
+  customername: any;
  
 
   admin:boolean=false;
   customer:boolean=false;
 
-  constructor(private jwtService:OrdersService,private admintoken:CustomerService,private route:Router){
+  constructor(private jwtService:OrdersService,private admintoken:CustomerService,private route:Router,private activatedRoute: ActivatedRoute){
 
     this.menuService=jwtService;
     
       this.admin=true;
       this.customer=false;
     this.key=admintoken.token;
+
     this.key.subscribe((genToken: any) => {
       this.adminKey = genToken;
+
+      this.activatedRoute.params.subscribe((params) => {
+        this.customername = params['id'];
+        console.log('customername:', this.customername);
+      });
+
       
       this.getall();
     });
@@ -47,7 +55,7 @@ export class CustomershowordersComponent {
 
   public accessApi(adminKey: any) {
     console.log('accessApi', adminKey);  
-    let response = this.menuService.getAll(adminKey);
+    let response = this.menuService.getByCustomerId(this.customername, adminKey);
     response.subscribe((responseData: any) => {
       if (typeof responseData === 'string') {
         this.response = JSON.parse(responseData); // Parse string to array

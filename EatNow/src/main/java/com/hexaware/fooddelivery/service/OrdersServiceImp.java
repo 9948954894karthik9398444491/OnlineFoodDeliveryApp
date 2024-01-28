@@ -1,5 +1,6 @@
 package com.hexaware.fooddelivery.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -117,6 +118,31 @@ public class OrdersServiceImp implements IOrdersService {
 	        repo.deleteById(orders.getCartId());
 	    }
 	}
+	
+	@Override
+    public List<OrdersDTO> getByCustomerId(int customerId) {
+        List<Orders> ordersList = repo.findCustomerByCustomerId(customerId);
+        List<OrdersDTO> ordersDTOList = new ArrayList<>();
 
+        for (Orders orders : ordersList) {
+            OrdersDTO ordersDTO = new OrdersDTO();
 
+            ordersDTO.setCartId(orders.getCartId());
+            ordersDTO.setCustomerId(orders.getCustomer().getCustomerId());
+            if (orders.getRestaurants() != null) {
+                ordersDTO.setRestaurantId(orders.getRestaurants().getRestaurantId());
+            }            
+            ordersDTO.setDeliveryAddress(orders.getDeliveryAddress());
+            ordersDTO.setPaymentMethod(orders.getPaymentMethod());
+            ordersDTO.setTotalAmount(orders.getTotalAmount());
+
+            ordersDTOList.add(ordersDTO);
+        }
+
+        logger.info("Get all orders for customer with id: " + customerId);
+
+        return ordersDTOList;
+    }
+
+	
 }

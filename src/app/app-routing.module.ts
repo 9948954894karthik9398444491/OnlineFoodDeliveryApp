@@ -52,7 +52,7 @@ const routes: Routes = [
 {path:'customerinfo/:id',component:CustomerinfoComponent},
 {path:'customercart/:id',component:CustomercartComponent},
 {path:'customerorder',component:CustomerorderComponent},
-{ path: 'showallorders', component: CustomershowordersComponent },
+{ path: 'showallorders/:id', component: CustomershowordersComponent },
 {path:'customerheader',component:CustomerheaderComponent},
   { path: '**', component: NotFoundComponent }
 

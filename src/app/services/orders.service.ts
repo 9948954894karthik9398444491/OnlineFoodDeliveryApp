@@ -35,5 +35,9 @@ export class OrdersService {
       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
       return this.http.put<Orders>(`${this.baseURL}Orders/updateOrders`,update, { headers });
     }
+    getByCustomerId(Id: number, token: any){
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      return this.http.get(`${this.baseURL}Orders/getByCustomerId/${Id}`,{headers,responseType:'text' as 'json'});
+    }
 
 }

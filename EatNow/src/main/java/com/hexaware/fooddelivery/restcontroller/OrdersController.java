@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hexaware.fooddelivery.dto.CartDTO;
 import com.hexaware.fooddelivery.dto.OrdersDTO;
 import com.hexaware.fooddelivery.entity.Orders;
 import com.hexaware.fooddelivery.service.IOrdersService;
@@ -68,4 +69,12 @@ public class OrdersController {
 	public void deleteById(@PathVariable int cartId) {
 		service.deleteById(cartId);
 	}
+	
+	@GetMapping("/getByCustomerId/{customerId}")
+	@PreAuthorize("hasAnyAuthority('CUSTOMER','ADMIN')")
+	public List<OrdersDTO> getByCustomerId( @PathVariable int customerId) {
+		System.out.println("ok");
+		return service.getByCustomerId(customerId);
+	}
+
 }

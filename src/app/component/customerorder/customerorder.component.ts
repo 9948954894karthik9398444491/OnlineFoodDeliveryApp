@@ -68,7 +68,9 @@ export class CustomerorderComponent {
 
 
   showorders(){
-    this.router.navigate(['/showallorders']);
+    this.router.navigate(['/customerdashboard',this.admintoken.customername]);
+
+    // this.router.navigate(['/showallorders']);
 
   }
 

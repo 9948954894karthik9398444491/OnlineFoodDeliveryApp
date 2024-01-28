@@ -57,7 +57,7 @@ export class CustomerdashboardComponent {
     }
   }
   showorders(){
-    this.route.navigate(['/showallorders']);
+    this.route.navigate(['/showallorders',this.response.customerId]);
 
   }
   
